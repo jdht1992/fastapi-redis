@@ -1,15 +1,19 @@
-from contextlib import asynccontextmanager
 import threading
-from fastapi import FastAPI
+from contextlib import asynccontextmanager
+
 import uvicorn
-from config.config import settings
-from redis_config.redis import RedisBroker
+from fastapi import FastAPI
+
 from src.api.route.router import v1_router
+from src.config.config import settings
+from src.redis_config.redis import RedisBroker
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    thread = threading.Thread(target=RedisBroker().consume, args={settings.LEADERBOARD_REDIS_CHANNEL})
+    thread = threading.Thread(
+        target=RedisBroker().consume, args={settings.LEADERBOARD_REDIS_CHANNEL}
+    )
     thread.start()  # Keeps the thread running as long as FastAPI app is running
     yield
 

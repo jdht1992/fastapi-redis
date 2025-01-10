@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import json
 import redis
-from config.config import settings
+from src.config.config import settings
 
 
 class PubSubInterface(ABC):

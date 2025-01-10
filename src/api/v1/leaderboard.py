@@ -1,7 +1,9 @@
 # Code inside leaderboard.py
 from fastapi import APIRouter
-from config.config import settings
-from redis_config.redis import RedisBroker
+
+from src.redis_config.redis import RedisBroker
+from src.config.config import settings
+
 
 router = APIRouter(prefix="/leaderboard")
 redis_broker = RedisBroker()
